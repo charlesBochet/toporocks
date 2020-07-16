@@ -26,7 +26,7 @@ before_install:
   - npm i -g npm
 
 install:
-  - cp .env.travis.testing .env
+  - cp .env.dusk.travis .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
   - yarn install
   - npm run production
@@ -38,7 +38,7 @@ before_script:
   - php artisan serve &
 
 script:
-  - php artisan dusk
+  - php artisan dusk --env=dusk.travis
   - vendor/bin/phpunit
 
 notifications:
