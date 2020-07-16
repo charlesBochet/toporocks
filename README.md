@@ -1,5 +1,7 @@
 # TopoRocks
 
+[![Build Status](https://travis-ci.org/charlesBochet/toporocks.svg?branch=master)](https://travis-ci.org/charlesBochet/toporocks)
+
 Welcome on TopoRocks open-source project
 
 ## Setup
