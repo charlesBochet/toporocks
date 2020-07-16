@@ -17,18 +17,18 @@ php:
   - 7.3
 
 services:
-  - mysql
+  - postgresql
 
 before_install:
-  - mysql -e 'CREATE DATABASE laravel_vue_spa;'
+  - psql -c 'create database toporocks-test;' -U postgres
   - travis_retry composer self-update && composer --version
   - nvm install 'lts/*'
   - npm i -g npm
 
 install:
-  - cp .env.dusk.testing .env
+  - cp .env.travis.testing .env
   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - npm install --no-audit --no-progress --quiet
+  - yarn install
   - npm run production
 
 before_script:
