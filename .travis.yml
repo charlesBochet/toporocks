@@ -38,7 +38,7 @@ before_script:
   - php artisan serve &
 
 script:
-  - php artisan dusk --env=dusk.travis
+  - php artisan dusk
   - vendor/bin/phpunit
 
 notifications:
