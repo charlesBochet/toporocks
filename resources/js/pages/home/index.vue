@@ -1,17 +1,13 @@
 <template>
   <div>
-    <topo-map @centerUpdated="mapCenter = $event"/>
-    <div class="add-button" @click="addRoute">
+    <topo-map :routes="routes" @centerUpdated="mapCenter = $event" />
+    <div v-if="user" class="add-button" @click="addRoute">
       + {{ $t('add_route') }}
     </div>
-    <add-route-side-bar v-if="mode === 'add-route'" @closed="closeSideBar" :map-center="mapCenter">
-    </add-route-side-bar>
-    <view-route-side-bar v-if="mode === 'view-route'" @closed="closeSideBar">
-    </view-route-side-bar>
-    <add-ascent-side-bar v-if="mode === 'add-ascent'" @closed="closeSideBar">
-    </add-ascent-side-bar>
-    <view-ascent-side-bar v-if="mode === 'view-ascent'" @closed="closeSideBar">
-    </view-ascent-side-bar>
+    <add-route-side-bar v-if="mode === 'add-route'" :map-center="mapCenter" @closed="closeSideBar" />
+    <view-route-side-bar v-if="mode === 'view-route'" @closed="closeSideBar" />
+    <add-ascent-side-bar v-if="mode === 'add-ascent'" @closed="closeSideBar" />
+    <view-ascent-side-bar v-if="mode === 'view-ascent'" @closed="closeSideBar" />
   </div>
 </template>
 
@@ -19,9 +15,10 @@
 import { latLng } from 'leaflet'
 import TopoMap from './components/Map.vue'
 import AddRouteSideBar from './components/AddRouteSideBar'
-import AddAscentSideBar from './components/AddAscentSideBar';
+import AddAscentSideBar from './components/AddAscentSideBar'
 import ViewAscentSideBar from './components/ViewAscentSideBar'
 import ViewRouteSideBar from './components/ViewRouteSideBar'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { AddAscentSideBar, AddRouteSideBar, ViewRouteSideBar, ViewAscentSideBar, TopoMap },
@@ -30,10 +27,19 @@ export default {
   ],
   data () {
     return {
+      routes: [],
       selectedRoute: null,
       mapCenter: latLng(48.4, 2.7)
     }
   },
+  mounted () {
+    this.$http.get('api/routes').then((response) => {
+      this.routes = response.data
+    })
+  },
+  computed: mapGetters({
+    user: 'auth/user'
+  }),
   methods: {
     addRoute () {
       this.$router.push('/add-route')

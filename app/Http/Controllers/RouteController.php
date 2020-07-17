@@ -15,7 +15,7 @@ class RouteController extends Controller
         $route = new Route();
         $picture = new Picture();
         $route->name = 'Route Test';
-        $route->location = new Point($request->position['lat'], $request->position['lng']);
+        $route->location = new Point($request->position['lng'], $request->position['lat']);
         $route->author_id = Auth::user()->id;
 
         $route->save();
@@ -25,5 +25,10 @@ class RouteController extends Controller
         $picture->save();
 
         return response(['route_id', $route->id]);
+    }
+
+    public function fetchAll()
+    {
+        return response(Route::all());
     }
 }
