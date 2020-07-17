@@ -11,7 +11,8 @@ $config = [
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/favicon-32x32-dunplab-manifest-4917.png" type="image/png"/>
   <title>{{ config('app.name') }}</title>
 
   <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
