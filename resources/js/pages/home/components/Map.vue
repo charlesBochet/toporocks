@@ -3,6 +3,7 @@
     :zoom="zoom"
     :center="center"
     :options="mapOptions"
+    @update:center="centerUpdate"
     class="min-vh-100"
   >
     <l-tile-layer
@@ -53,6 +54,9 @@ export default {
           callback()
         }
       )
+    },
+    centerUpdate (center) {
+      this.$emit('centerUpdated', center)
     }
   }
 }

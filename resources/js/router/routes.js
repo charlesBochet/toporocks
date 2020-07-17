@@ -3,7 +3,11 @@ function page (path) {
 }
 
 export default [
-  { path: '/', name: 'home', component: page('home/index.vue') },
+  { path: '/', name: 'home', component: page('home/index.vue'), props: { mode: 'default' } },
+  { path: '/add-route', name: 'add-route', component: page('home/index.vue'), props: { mode: 'add-route' } },
+  { path: '/add-ascent', name: 'add-ascent', component: page('home/index.vue'), props: { mode: 'add-ascent' } },
+  { path: '/view-ascent', name: 'view-ascent', component: page('home/index.vue'), props: { mode: 'view-ascent' } },
+  { path: '/view-route', name: 'view-route', component: page('home/index.vue'), props: { mode: 'view-route' } },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
