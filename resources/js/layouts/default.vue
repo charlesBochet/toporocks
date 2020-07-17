@@ -2,7 +2,7 @@
   <div class="main-layout">
     <navbar />
 
-    <div class="container mt-4">
+    <div class="container-fluid p-0 main-container">
       <child />
     </div>
   </div>
@@ -19,3 +19,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .main-container {
+    overflow: hidden;
+    height: calc(100vh - 56px)
+  }
+</style>
