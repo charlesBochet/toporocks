@@ -1,7 +1,7 @@
 <template>
   <div>
     <img v-if="previewImage" :src="previewImage" class="uploaded-image">
-    <input type="file" accept="image/png, image/jpeg" @change="uploadImage" class="image-input">
+    <input type="file" accept="image/png, image/jpeg" class="image-input" @change="uploadImage">
   </div>
 </template>
 
@@ -17,11 +17,26 @@ export default {
     uploadImage (e) {
       const image = e.target.files[0]
       const reader = new FileReader()
-      reader.readAsDataURL(image)
-      reader.onload = e => {
-        this.previewImage = e.target.result
-        this.$emit('pictureUploaded', this.previewImage)
+
+      let data = new FormData()
+      data.append('file', image)
+
+      console.log(e.target)
+      let config = {
+        header: {
+          'Content-Type': e.target.mime
+        }
       }
+      this.$http.post('api/pictures/upload', data, config).then((response) => {
+        reader.readAsDataURL(image)
+        reader.onload = e => {
+          this.previewImage = e.target.result
+        }
+        this.$emit('pictureUploaded', response.data.path)
+      }).catch((error) => {
+        alert('Error while uploading')
+        console.log(error)
+      })
     }
   }
 }

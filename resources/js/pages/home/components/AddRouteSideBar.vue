@@ -1,5 +1,5 @@
 <template>
-  <side-bar :title="$t('add_route')" @closed="$emit('closed')">
+  <side-bar :title="$t('add_route')" :action-callback="addRoute" @closed="$emit('closed')">
     <div class="side-bar-section">
       <div class="section-label">
         Location
@@ -13,7 +13,7 @@
         Topo
       </div>
       <div class="section-content">
-        <picture-upload @pictureUploaded="picture = $event" />
+        <picture-upload @pictureUploaded="picturePath = $event" />
       </div>
     </div>
     <div class="side-bar-section">
@@ -46,10 +46,26 @@ export default {
     return {
       routePosition: this.mapCenter,
       selectedGrade: null,
-      picture: null
+      picturePath: null
     }
   },
   mounted () {
+  },
+  methods: {
+    addRoute () {
+      const data = {
+        position: this.routePosition,
+        grade: this.selectedGrade,
+        picturePath: this.picturePath
+      }
+      this.$http.post('api/routes/create', data).then((response) => {
+        this.$emit('closed')
+      }).catch((error) => {
+        alert('Error while uploading')
+        console.log(error)
+      })
+      console.log(this.$data)
+    }
   }
 }
 </script>

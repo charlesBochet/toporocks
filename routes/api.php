@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+    Route::post('pictures/upload', 'PictureController@postUpload')->name('uploadFile');
+    Route::post('routes/create', 'RouteController@create')->name('createRoute');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
