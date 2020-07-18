@@ -1,11 +1,11 @@
 <template>
-  <side-bar :title="$t('add_route')" :action-callback="addRoute" @closed="$emit('closed')">
+  <side-bar :title="$t('add_route')" :action-callback="savePictures" @closed="$emit('closed')">
     <div class="side-bar-section">
       <div class="section-label">
         Location
       </div>
       <div class="section-content">
-        <mini-map :center="mapCenter" @positionUpdated="routePosition = $event" />
+        <mini-map :center="mapCenter" @positionUpdated="routePosition = $event" :routes="routes" />
       </div>
     </div>
     <div class="side-bar-section">
@@ -13,7 +13,7 @@
         Topo
       </div>
       <div class="section-content">
-        <picture-upload @pictureUploaded="picturePath = $event" />
+        <picture-upload ref="pictureUpload" @picturesUploaded="addRoute" />
       </div>
     </div>
     <div class="side-bar-section">
@@ -41,22 +41,29 @@ export default {
     GradePicker,
     SideBar
   },
-  props: ['mapCenter'],
+  props: ['mapCenter', 'routes'],
   data () {
     return {
       routePosition: this.mapCenter,
       selectedGrade: null,
-      picturePath: null
+      picturePath: null,
+      tracedPicturePath: null
     }
   },
   mounted () {
   },
   methods: {
-    addRoute () {
+    savePictures () {
+      this.$refs.pictureUpload.savePictures()
+    },
+    addRoute ($event) {
+      this.picturePath = $event.picturePath
+      this.tracedPicturePath = $event.tracedPicturePath
       const data = {
         position: this.routePosition,
         grade: this.selectedGrade,
-        picturePath: this.picturePath
+        picturePath: this.picturePath,
+        tracedPicturePath: this.tracedPicturePath
       }
       this.$http.post('api/routes/create', data).then((response) => {
         this.$emit('closed')

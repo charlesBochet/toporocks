@@ -12,6 +12,6 @@ class PictureController extends Controller
     public function postUpload(PictureRequest $request)
     {
         $path = Storage::disk('s3')->put('images', $request->file);
-        return response(['path' => $path]);
+        return response(['path' => $path, 'url' => Storage::disk('s3')->url($path)]);
     }
 }

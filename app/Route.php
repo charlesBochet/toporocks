@@ -12,4 +12,9 @@ class Route  extends Model
     protected $postgisFields = [
         'location'
     ];
+
+    public function ascents()
+    {
+        return $this->hasMany('App\Ascent');
+    }
 }

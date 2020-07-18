@@ -8,7 +8,15 @@
     <l-tile-layer
       :url="url"
     />
-    <l-marker :lat-lng="center" :draggable="true" :icon="icon" @update:latLng="updateMarkerPosition($event)"/>
+    <l-marker :lat-lng="center" :draggable="true" :icon="icon" @update:latLng="updateMarkerPosition($event)" :options="{ zIndexOffset: 1000 }"/>
+    <l-marker
+      v-for="route in routes"
+      :key="route.id"
+      :lat-lng="route.location.coordinates"
+      :icon="icon"
+      :options="{ opacity: 0.2 }"
+    >
+    </l-marker>
   </l-map>
 </template>
 
@@ -23,7 +31,7 @@ export default {
     LTileLayer,
     LMarker
   },
-  props: [ 'center' ],
+  props: ['center', 'routes'],
   data () {
     return {
       zoom: 18,

@@ -4,7 +4,7 @@
     <div v-if="user" class="add-button" @click="addRoute">
       + {{ $t('add_route') }}
     </div>
-    <add-route-side-bar v-if="mode === 'add-route'" :map-center="mapCenter" @closed="closeSideBar" />
+    <add-route-side-bar v-if="mode === 'add-route'" :map-center="mapCenter" @closed="closeSideBar" :routes="routes" />
     <view-route-side-bar v-if="mode === 'view-route'" @closed="closeSideBar" />
     <add-ascent-side-bar v-if="mode === 'add-ascent'" @closed="closeSideBar" />
     <view-ascent-side-bar v-if="mode === 'view-ascent'" @closed="closeSideBar" />

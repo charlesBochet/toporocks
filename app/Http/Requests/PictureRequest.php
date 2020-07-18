@@ -24,7 +24,7 @@ class PictureRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|image|max:2000'
+            'file' => 'required|image|max:10000'
         ];
     }
 }

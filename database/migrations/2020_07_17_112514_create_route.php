@@ -25,7 +25,7 @@ class CreateRoute extends Migration
         Schema::create('ascents', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->string('grade');
             $table->integer('route_id');
             $table->integer('author_id');

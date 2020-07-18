@@ -25,6 +25,7 @@ class RouteRequest extends FormRequest
     {
         return [
             'picturePath' => 'required|string',
+            'tracedPicturePath' => 'required|string',
             'grade' => 'required|string',
             'position' => 'required|array',
         ];
