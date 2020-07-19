@@ -12,6 +12,7 @@
       do-not-resize="['gif', 'svg']"
       @input="loadPicture"
     />
+    <loader v-if="isLoading" />
     <editor v-if="displayEditor" ref="editor" :canvas-height="canvasHeight" :canvas-width="canvasWidth" />
   </div>
 </template>
@@ -30,11 +31,13 @@ export default {
       displayEditor: false,
       uploadConfig: {},
       picturePath: null,
-      tracedPicturePath: null
+      tracedPicturePath: null,
+      isLoading: false
     }
   },
   methods: {
     loadPicture (base64image) {
+      this.isLoading = true
       this.displayEditor = false
       fetch(base64image.dataUrl).then(res => {
         res.blob().then(image => {
@@ -52,6 +55,7 @@ export default {
             image.onload = () => {
               this.canvasHeight = this.canvasWidth / image.width * image.height
               this.displayEditor = true
+              this.isLoading = false
               this.$nextTick(() => {
                 this.$refs.editor.set('freeDrawing', { stroke: 'red' })
                 this.$refs.editor.setBackgroundImage(response.data.url)

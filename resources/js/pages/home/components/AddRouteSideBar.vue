@@ -1,27 +1,30 @@
 <template>
   <side-bar :title="$t('add_route')" :action-callback="savePictures" @closed="$emit('closed')">
-    <div class="side-bar-section">
-      <div class="section-label">
-        Location
+    <loader v-if="isLoading" />
+    <div v-else>
+      <div class="side-bar-section">
+        <div class="section-label">
+          Location
+        </div>
+        <div class="section-content">
+          <mini-map :center="mapCenter" @positionUpdated="routePosition = $event" :routes="routes" />
+        </div>
       </div>
-      <div class="section-content">
-        <mini-map :center="mapCenter" @positionUpdated="routePosition = $event" :routes="routes" />
+      <div class="side-bar-section">
+        <div class="section-label">
+          Topo
+        </div>
+        <div class="section-content">
+          <picture-upload ref="pictureUpload" @picturesUploaded="addRoute" />
+        </div>
       </div>
-    </div>
-    <div class="side-bar-section">
-      <div class="section-label">
-        Topo
-      </div>
-      <div class="section-content">
-        <picture-upload ref="pictureUpload" @picturesUploaded="addRoute" />
-      </div>
-    </div>
-    <div class="side-bar-section">
-      <div class="section-label">
-        Grade
-      </div>
-      <div class="section-content">
-        <grade-picker @selected="selectedGrade = $event" />
+      <div class="side-bar-section">
+        <div class="section-label">
+          Grade
+        </div>
+        <div class="section-content">
+          <grade-picker @selected="selectedGrade = $event" />
+        </div>
       </div>
     </div>
   </side-bar>
@@ -47,13 +50,15 @@ export default {
       routePosition: this.mapCenter,
       selectedGrade: null,
       picturePath: null,
-      tracedPicturePath: null
+      tracedPicturePath: null,
+      isLoading: false
     }
   },
   mounted () {
   },
   methods: {
     savePictures () {
+      this.isLoading = true
       this.$refs.pictureUpload.savePictures()
     },
     addRoute ($event) {

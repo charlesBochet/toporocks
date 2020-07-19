@@ -3,10 +3,12 @@ import Card from './Card'
 import Child from './Child'
 import Button from './Button'
 import Checkbox from './Checkbox'
+import Loader from './Loader'
 import { HasError, AlertError, AlertSuccess } from 'vform'
 
 // Components that are registered globaly.
 [
+  Loader,
   Card,
   Child,
   Button,
