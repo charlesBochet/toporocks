@@ -17,6 +17,7 @@ export default {
   },
   mounted () {
     this.grades = Config.grades
+    this.selectGrade('6a')
   },
   methods: {
     selectGrade (grade) {

@@ -1,7 +1,7 @@
 <template>
   <side-bar :title="$t('add_route')" :action-callback="savePictures" @closed="$emit('closed')">
-    <loader v-if="isLoading" />
-    <div v-else>
+    <loader v-show="isLoading" />
+    <div v-show="!isLoading">
       <div class="side-bar-section">
         <div class="section-label">
           Location
@@ -76,7 +76,6 @@ export default {
         alert('Error while uploading')
         console.log(error)
       })
-      console.log(this.$data)
     }
   }
 }

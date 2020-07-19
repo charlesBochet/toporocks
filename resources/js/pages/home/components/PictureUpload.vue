@@ -12,7 +12,7 @@
       do-not-resize="['gif', 'svg']"
       @input="loadPicture"
     />
-    <loader v-if="isLoading" />
+    <loader v-show="isLoading" />
     <editor v-if="displayEditor" ref="editor" :canvas-height="canvasHeight" :canvas-width="canvasWidth" />
   </div>
 </template>
